@@ -14,14 +14,14 @@ package nl.bioinf.streams_demo;
  * @param gender the gender
  * @param anyEvent whether any heart event occurred (death, infarction, angioplasty, or bypass)
  */
-public record Case(int bhr, int basebp, int sbp, int dose, int maxhr, int age, Gender gender, boolean anyEvent) {
+public record CardiacCase(int bhr, int basebp, int sbp, int dose, int maxhr, int age, Gender gender, boolean anyEvent) {
 
     /**
      * Factory method to construct from a single line of the csv file.
      * @param line the line to parse
      * @return aCase, a Case object
      */
-    public static Case fromString(String line) {
+    public static CardiacCase fromString(String line) {
         String[] elements = line.split(";");
         if (elements.length != 8 ) {
             throw new IllegalArgumentException("probably wrong file to parse: " + line);
@@ -36,7 +36,7 @@ public record Case(int bhr, int basebp, int sbp, int dose, int maxhr, int age, G
             Gender gender = Gender.fromCode(elements[6]);
             boolean anyEvent = (elements[7].equals("0"));
 
-            return new Case(bhr, basebp, sbp, dose, maxhr, age, gender, anyEvent);
+            return new CardiacCase(bhr, basebp, sbp, dose, maxhr, age, gender, anyEvent);
         } catch (NumberFormatException ex) {
             System.err.println("line");
             throw ex;

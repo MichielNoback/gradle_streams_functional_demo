@@ -2,5 +2,5 @@
 
 Demo for Gradle, Java, Java functional programming and streams.
 
-Don't contact me about it.
+Please don't contact me about it.
 

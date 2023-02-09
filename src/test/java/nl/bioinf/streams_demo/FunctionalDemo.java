@@ -25,7 +25,7 @@ public class FunctionalDemo {
     }
 
     /**
-     * User of combiner.
+     * nl.bioinf.streams_demo.User of combiner.
      * It has no clue what the combiner is going to do;
      * It only knows the contract will by definition be implemented (otherwise the compiler would have rejected it).
      * @param combiner
@@ -57,6 +57,6 @@ public class FunctionalDemo {
     @Test
     void usingLambdas() {
         //a Lambda implementer of the interface!
-        useAcombiner((x, y) -> x/y);
+        useAcombiner((a, b) -> (double)a/b);
     }
 }

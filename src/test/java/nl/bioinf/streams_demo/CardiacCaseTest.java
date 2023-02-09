@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CaseTest {
+class CardiacCaseTest {
 
     @Test
     void fromString() {
-        Case aCase = Case.fromString("92;103;86;40;100;85;0;1");
+        CardiacCase aCase = CardiacCase.fromString("92;103;86;40;100;85;0;1");
         System.out.println(aCase);
         //bhr, basebp, pkhr, sbp, dose, maxhr, age, gender, anyEvent
         assertEquals(aCase.bhr(), 92);
@@ -24,7 +24,7 @@ class CaseTest {
     @Test
     void toCsv() {
         String caseInput = "92;103;86;40;100;85;0;1";
-        Case aCase = Case.fromString(caseInput);
+        CardiacCase aCase = CardiacCase.fromString(caseInput);
 
         String csv1 = aCase.toCsv();
         System.out.println(csv1);
