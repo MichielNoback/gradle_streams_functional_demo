@@ -1,0 +1,86 @@
+//plugins provide a wealth of task to use out of the box
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+    id 'idea'
+}
+
+group 'nl.bioinf'
+version '1.0-SNAPSHOT'
+
+// tells where to look for dependencies; maven is the most-used
+// see https://mvnrepository.com/
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    //compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+//we can modify default / builtin tasks
+test {
+    useJUnitPlatform{
+        //excludeTags("demo")
+    }
+}
+
+// to build an executable jar; override the jar task
+jar {
+    manifest {
+        attributes "Main-Class": "nl.bioinf.streams_demo.Application"
+    }
+}
+
+// to build a fat jar use the shadow plugin
+shadowJar {
+    manifest {
+        attributes "Main-Class": "nl.bioinf.streams_demo.Application"
+    }
+}
+
+// we can create simple new tasks
+task welcome {
+    group 'demotasks'
+    description 'Tasks which shows a welcome message'
+    doFirst {
+        println 'Welcome in the Baeldung!'
+    }
+    doLast {
+        println 'Gradle has left the Baeldung!'
+    }
+}
+
+// we can create task templates
+class PrintToolVersionTask extends DefaultTask {
+    @Input
+    String tool
+
+    @TaskAction
+    void printToolVersion() {
+        switch (tool) {
+            case 'java':
+                println 'java version=' + System.getProperty("java.version")
+                break
+            case 'groovy':
+                println 'Groovy version = ' + GroovySystem.version
+                break
+            default:
+                throw new IllegalArgumentException("Unknown tool")
+        }
+    }
+}
+
+task printJavaVersion(type : PrintToolVersionTask) {
+    group 'demotasks'
+    tool 'java'
+}
+
+task printGroovyVersion(type : PrintToolVersionTask) {
+    group 'demotasks'
+    tool 'groovy'
+}
